@@ -12,7 +12,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_115447) do
+ActiveRecord::Schema.define(version: 2020_03_27_183359) do
+  create_table "movies", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "plot"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "seasons", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "plot"
+    t.integer "number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", limit: 50
     t.datetime "created_at", precision: 6, null: false
