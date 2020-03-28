@@ -48,4 +48,20 @@ RSpec.describe Season, type: :model do
       expect(season.episodes.count).to eq(2)
     end
   end
+
+  context "With existing purchase options" do
+    let(:season) { Season.create(title: "Title", plot: "Plot", number: 1) }
+    let!(:purchase_option1) { PurchaseOption.create(price: 1.5, hd_quality: true, media: season) }
+    let!(:purchase_option2) { PurchaseOption.create(price: 0.5, hd_quality: false, media: season) }
+
+    it "should have access to them" do
+      expect(season.purchase_options.count).to eq(2)
+    end
+
+    it "should destroy them in destroy" do
+      expect(PurchaseOption.count).to eq(2)
+      season.destroy!
+      expect(PurchaseOption.count).to eq(0)
+    end
+  end
 end

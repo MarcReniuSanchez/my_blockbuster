@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_185358) do
+ActiveRecord::Schema.define(version: 2020_03_28_103332) do
   create_table "episodes", force: :cascade do |t|
     t.string "title", null: false
     t.text "plot", null: false
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 2020_03_27_185358) do
     t.text "plot"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "purchase_options", force: :cascade do |t|
+    t.float "price", null: false
+    t.boolean "hd_quality", default: false
+    t.string "media_type", null: false
+    t.integer "media_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["media_type", "media_id"], name: "index_purchase_options_on_media_type_and_media_id"
   end
 
   create_table "seasons", force: :cascade do |t|

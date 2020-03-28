@@ -21,4 +21,20 @@ RSpec.describe Movie, type: :model do
     subject.plot = nil
     expect(subject).not_to be_valid
   end
+
+  context "With existing purchase options" do
+    let(:movie) { Movie.create(title: "Title", plot: "Plot") }
+    let!(:purchase_option1) { PurchaseOption.create(price: 1.5, hd_quality: true, media: movie) }
+    let!(:purchase_option2) { PurchaseOption.create(price: 0.5, hd_quality: false, media: movie) }
+
+    it "should have access to them" do
+      expect(movie.purchase_options.count).to eq(2)
+    end
+
+    it "should destroy them in destroy" do
+      expect(PurchaseOption.count).to eq(2)
+      movie.destroy!
+      expect(PurchaseOption.count).to eq(0)
+    end
+  end
 end
