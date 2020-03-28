@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
-class CreateMovies < ActiveRecord::Migration[6.0]
+class CreateMedias < ActiveRecord::Migration[6.0]
   def change
-    create_table :movies do |t|
+    create_table :medias do |t|
       t.string  :title, null: false
       t.text    :plot
+      t.integer :number
+      t.string  :type
+
       t.timestamps
     end
   end
