@@ -10,4 +10,14 @@ RSpec.describe PurchaseOption, type: :model do
   it "should be valid with attributes" do
     expect(subject).to be_valid
   end
+
+  it "is not valid without price" do
+    subject.price = nil
+    expect(subject).not_to be_valid
+  end
+
+  it "is not valid without media" do
+    subject.media = nil
+    expect(subject).not_to be_valid
+  end
 end
