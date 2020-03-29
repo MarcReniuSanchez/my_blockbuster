@@ -11,8 +11,15 @@ RSpec.describe "Library API", type: :request do
     before { get "/library/#{user_id}" }
 
     it "returns purchased medias" do
-      expect(json).not_to be_empty
-      expect(json.size).to eq(4)
+      expect(json_response).not_to be_empty
+      expect(json_response.size).to eq(4)
+      expect(json_response).to match(library_expected_response)
     end
+  end
+end
+
+def library_expected_response
+  Purchase.not_expired.by_expiring_time.collect do |purchase|
+    PurchaseSerializer.new(purchase).as_json.with_indifferent_access
   end
 end

@@ -10,8 +10,8 @@ RSpec.describe "Medias API", type: :request do
     before { get "/medias" }
 
     it "returns medias" do
-      expect(json).not_to be_empty
-      expect(json.size).to eq(8)
+      expect(json_response).not_to be_empty
+      expect(json_response.size).to eq(8)
     end
   end
 
@@ -19,8 +19,8 @@ RSpec.describe "Medias API", type: :request do
     before { get "/medias/movies" }
 
     it "returns movies" do
-      expect(json).not_to be_empty
-      expect(json.size).to eq(5)
+      expect(json_response).not_to be_empty
+      expect(json_response.size).to eq(5)
     end
   end
 
@@ -28,8 +28,8 @@ RSpec.describe "Medias API", type: :request do
     before { get "/medias/seasons" }
 
     it "returns season" do
-      expect(json).not_to be_empty
-      expect(json.size).to eq(3)
+      expect(json_response).not_to be_empty
+      expect(json_response.size).to eq(3)
     end
   end
 end
