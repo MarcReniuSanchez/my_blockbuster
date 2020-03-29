@@ -2,14 +2,17 @@
 
 class MediasController < ApplicationController
   def index
-    json_response({})
+    @medias = Media.order(:created_at)
+    json_response(@medias)
   end
 
   def movies
-    json_response({})
+    @movies = Movie.order(:created_at)
+    json_response(@movies)
   end
 
   def seasons
-    json_response({})
+    @seasons = Season.order(:created_at)
+    json_response(@seasons)
   end
 end

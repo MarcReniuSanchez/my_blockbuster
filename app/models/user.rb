@@ -6,6 +6,6 @@ class User < ApplicationRecord
   has_many :purchases, dependent: :destroy
 
   def live_purchase(media)
-    self.purchases.not_expired.where(media: media).any?
+    self.purchases.not_expired.where(media_id: media.id, media_type: media.type).any?
   end
 end

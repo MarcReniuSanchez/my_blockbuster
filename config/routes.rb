@@ -9,4 +9,7 @@ Rails.application.routes.draw do
       get :seasons
     end
   end
+
+  get "library/:user_id", controller: :library, action: :index
+  post "purchase", controller: :purchase, action: :create
 end

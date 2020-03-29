@@ -11,11 +11,7 @@ RSpec.describe "Medias API", type: :request do
 
     it "returns medias" do
       expect(json).not_to be_empty
-      expect(json.size).to eq(10)
-    end
-
-    it "returns status code 200" do
-      expect(response).to have_http_status(200)
+      expect(json.size).to eq(8)
     end
   end
 
@@ -26,10 +22,6 @@ RSpec.describe "Medias API", type: :request do
       expect(json).not_to be_empty
       expect(json.size).to eq(5)
     end
-
-    it "returns status code 200" do
-      expect(response).to have_http_status(200)
-    end
   end
 
   describe "GET /medias/seasons" do
@@ -38,10 +30,6 @@ RSpec.describe "Medias API", type: :request do
     it "returns season" do
       expect(json).not_to be_empty
       expect(json.size).to eq(3)
-    end
-
-    it "returns status code 200" do
-      expect(response).to have_http_status(200)
     end
   end
 end
