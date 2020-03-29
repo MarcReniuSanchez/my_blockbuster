@@ -2,7 +2,7 @@
 
 class PurchaseSerializer < ActiveModel::Serializer
   attribute :valid_until do
-    object.valid_until.strftime("%+")
+    object.valid_until.strftime("%F %T")
   end
   has_one :media
 end
