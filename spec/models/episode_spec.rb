@@ -3,9 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Episode, type: :model do
-  let(:season) { Season.create(title: "Season title", plot: "Season plot", number: 1) }
-
-  subject { described_class.new(title: "Episode title", plot: "Episode plot", number: 1, season: season) }
+  subject { build(:episode) }
 
   it "is valid with attributes" do
     expect(subject).to be_valid
@@ -32,19 +30,17 @@ RSpec.describe Episode, type: :model do
   end
 
   context "With existing episodes" do
-    let(:season) { Season.create(title: "A season", plot: "This is a season plot", number: 1) }
-    let!(:episode1) { Episode.create(title: "Episode 1", plot: "Plot 1", number: 1, season: season) }
-    let!(:episode2) { Episode.create(title: "Episode 2", plot: "Plot 2", number: 2, season: season) }
-
-    subject { described_class.new(title: "Episode title", plot: "Episode plot", number: 1, season: season) }
+    let(:season) { create(:season) }
+    let!(:episodes) { create_list(:episode, 2, season: season) }
+    let(:new_episode) { build(:episode, number: 1, season: season) }
 
     it "is not valid if another episode of same season has the same number" do
-      expect(subject).to_not be_valid
+      expect(new_episode).to_not be_valid
     end
 
     it "should return the number of episodes in episode's season" do
-      expect(episode1.season_episodes).to eq(2)
-      expect(episode2.season_episodes).to eq(2)
+      expect(episodes.last.season_episodes).to eq(2)
+      expect(episodes.first.season_episodes).to eq(2)
     end
   end
 end

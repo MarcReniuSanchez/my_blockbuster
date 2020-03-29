@@ -3,10 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Purchase, type: :model do
-  let(:user) { User.create(email: "user@email.com") }
-  let(:media) { Movie.create(title: "Title", plot: "Plot") }
-
-  subject { described_class.new(price: 1.5, hd_quality: true, valid_until: Time.now + 2.days, user: user, media: media) }
+  subject { create(:purchase) }
 
   it "is valid with attributes" do
     expect(subject).to be_valid

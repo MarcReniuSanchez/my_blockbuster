@@ -3,11 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Season, type: :model do
-  subject { described_class.new(
-    title: "A season",
-    plot: "This is a season plot",
-    number: 1
-  ) }
+  subject { build(:season) }
 
   it "is valid with attributes" do
     expect(subject).to be_valid
@@ -34,25 +30,21 @@ RSpec.describe Season, type: :model do
   end
 
   context "With existing season" do
-    subject { described_class.new(title: "A season", plot: "This is a season plot", number: 10) }
-
-    let(:season) { Season.create(title: "A season", plot: "This is a season plot", number: 1) }
-    let!(:episode1) { Episode.create(title: "Episode 1", plot: "Plot 1", number: 1, season: season) }
-    let!(:episode2) { Episode.create(title: "Episode 2", plot: "Plot 2", number: 2, season: season) }
+    let(:season) { create(:season) }
+    let(:season_with_episodes) { create(:season_with_episodes) }
 
     it "should return 0 if no related episode exist" do
-      expect(subject.episodes.count).to eq(0)
+      expect(season.episodes.count).to eq(0)
     end
 
     it "should return how many episodes have" do
-      expect(season.episodes.count).to eq(2)
+      expect(season_with_episodes.episodes.count).to eq(2)
     end
   end
 
   context "With existing purchase options" do
-    let(:season) { Season.create(title: "Title", plot: "Plot", number: 1) }
-    let!(:purchase_option1) { PurchaseOption.create(price: 1.5, hd_quality: true, media: season) }
-    let!(:purchase_option2) { PurchaseOption.create(price: 0.5, hd_quality: false, media: season) }
+    let(:season) { create(:season) }
+    let!(:purchases) { create_list(:purchase_option, 2, media: season) }
 
     it "should have access to them" do
       expect(season.purchase_options.count).to eq(2)

@@ -3,10 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Movie, type: :model do
-  subject { described_class.new(
-    title: "A movie",
-    plot: "This is a movie plot"
-  ) }
+  subject { build(:movie) }
 
   it "is valid with attributes" do
     expect(subject).to be_valid
@@ -23,9 +20,8 @@ RSpec.describe Movie, type: :model do
   end
 
   context "With existing purchase options" do
-    let(:movie) { Movie.create(title: "Title", plot: "Plot") }
-    let!(:purchase_option1) { PurchaseOption.create(price: 1.5, hd_quality: true, media: movie) }
-    let!(:purchase_option2) { PurchaseOption.create(price: 0.5, hd_quality: false, media: movie) }
+    let(:movie) { create(:movie) }
+    let!(:purchases) { create_list(:purchase_option, 2, media: movie) }
 
     it "should have access to them" do
       expect(movie.purchase_options.count).to eq(2)
