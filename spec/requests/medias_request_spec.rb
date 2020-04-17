@@ -36,22 +36,3 @@ RSpec.describe "Medias API", type: :request do
     end
   end
 end
-
-def media_expected_response
-  Media.by_creation.collect do |media|
-    # In order to not deal with the STI class
-    (media.class.name + "Serializer").constantize.new(media).as_json.with_indifferent_access
-  end
-end
-
-def movie_expected_response
-  Movie.by_creation.collect do |movie|
-    MovieSerializer.new(movie).as_json.with_indifferent_access
-  end
-end
-
-def season_expected_response
-  Season.by_creation.collect do |season|
-    SeasonSerializer.new(season).as_json.with_indifferent_access
-  end
-end

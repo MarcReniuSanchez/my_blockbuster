@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Episode < ApplicationRecord
+  include ActiveModel::Serializers::Xml
+
   belongs_to :season
 
   validates :title, :plot, :number, :season, presence: true
@@ -10,5 +12,13 @@ class Episode < ApplicationRecord
 
   def season_episodes
     self.season.episodes.count
+  end
+
+  def attributes
+    {
+      title: nil,
+      plot: nil,
+      number: nil,
+    }
   end
 end
